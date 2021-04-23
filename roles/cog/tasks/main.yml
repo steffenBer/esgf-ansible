@@ -13,7 +13,7 @@
   register: cog_clone
 
 - name: Create CoG conda env
-  command: "{{ conda.exe }} create -y -n cog 'python<3' pip"
+  command: "{{ conda.exe }} create -y -n cog 'python<3' pip 'rsa<4.1'"
   args:
     creates: "{{ conda.envs }}/cog"
   register: cog_env
