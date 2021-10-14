@@ -2,7 +2,7 @@
 User = {{ globus_user }}
 Password = "{{ globus_pass }}"
 [Endpoint]
-Name = {{ hostname.self }}
+Name = {{ hostname.self ~ '.localhost' if not '.' in hostname.self else hostname.self }}
 Public = True
 [Security]
 FetchCredentialFromRelay = False
@@ -12,7 +12,15 @@ TrustedCertificateDirectory = {{ grid_security.cert_dir }}
 IdentityMethod = MyProxy
 AuthorizationMethod = Gridmap
 [GridFTP]
-Server = {{ '%(HOSTNAME)s' if 'data' in group_names else ''}}
+{% if 'data' in group_names %}
+{% if '.' in hostname.self %}
+Server = {{ '%(HOSTNAME)s' }}
+{% else %}
+Server = {{ '%(HOSTNAME)s' ~ '.localhost' }}
+{% endif %}
+{% else %}
+Server = 
+{% endif %}
 IncomingPortRange = 50000,51000
 OutgoingPortRange = 50000,51000
 RestrictPaths = R/,N/etc,N/tmp,N/dev
@@ -20,4 +28,4 @@ Sharing = False
 SharingRestrictPaths = R/
 SharingStateDir = {{ esg.home }}/etc/grid-security/sharing/{{ globus_user }}
 [MyProxy]
-Server = {{ hostname.idp }}
+Server = {{ hostname.idp ~ '.localhost' if not '.' in hostname.idp else hostname.idp }}

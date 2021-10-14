@@ -2,9 +2,12 @@
 # Create environment in which to generate certificates
 # Required for pyopenssl >= .15
 - name: Create cert-gen conda environment
-  command: "{{ conda.exe }} create -y -n cert-gen 'python<3' pyopenssl selinux libselinux-python"
+  command: "{{ conda.exe }} create -y -n cert-gen 'python<3' pyopenssl libselinux-cos6-x86_64"
   args:
     creates: "{{ conda.envs }}/cert-gen"
+
+- name: selinux pip
+  command: "/usr/local/conda/envs/cert-gen/bin/pip install selinux"
 
 # Check for present certificate
 - name: Check if {{ cert_dest }} exists
