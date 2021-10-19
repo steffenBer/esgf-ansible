@@ -19,7 +19,7 @@
 - name: Download trusted certificates for Globus
   unarchive:
     remote_src: yes
-    src: "{{ assets.base }}/esg_trusted_certificates.tar"
+    src: "https://github.com/ESGF/esgf-dist/raw/master/installer/certs/esg_trusted_certificates.tar"
     dest: /tmp
 
 - name: Install trusted certificates for Globus
