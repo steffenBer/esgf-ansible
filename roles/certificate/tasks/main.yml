@@ -7,7 +7,7 @@
     creates: "{{ conda.envs }}/cert-gen"
 
 - name: selinux pip
-  command: "/usr/local/conda/envs/cert-gen/bin/pip install selinux"
+  command: "{{ conda.envs }}/cert-gen/bin/pip install selinux"
 
 # Check for present certificate
 - name: Check if {{ cert_dest }} exists
