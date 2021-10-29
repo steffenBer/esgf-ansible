@@ -9,9 +9,10 @@ update-ca-trust
 cp /etc/pki/tls/certs/ca-bundle.crt /etc/pki/tls/certs/ca-bundle.crt_bak
 # Create httpd key
 CERTSPATH=/root/esgf/certs
+CERTHOSTNAME=$(hostname -f)
 mkdir -p $CERTSPATH
-rm -f $CERTSPATH/httpd.key $CERTSPATH/httpd.cert
+rm -f $CERTSPATH/$CERTHOSTNAME.key $CERTSPATH/$CERTHOSTNAME.cert
 openssl req -new -newkey rsa:4096 -days 7300 -nodes -x509 \
-    -subj "/C=DE/ST=Hessen/L=Offenbach/O=DWD/OU=TI15/CN=$(hostname -f)" \
-    -keyout $CERTSPATH/httpd.key  -out $CERTSPATH/httpd.cert
+    -subj "/C=DE/ST=Hessen/L=Offenbach/O=DWD/OU=TI15/CN=$CERTHOSTNAME" \
+    -keyout $CERTSPATH/$CERTHOSTNAME.pem  -out $CERTSPATH/$CERTHOSTNAME.cert
 echo Done!
