@@ -15,4 +15,5 @@ rm -f $CERTSPATH/$CERTHOSTNAME.key $CERTSPATH/$CERTHOSTNAME.cert
 openssl req -new -newkey rsa:4096 -days 7300 -nodes -x509 \
     -subj "/C=DE/ST=Hessen/L=Offenbach/O=DWD/OU=TI15/CN=$CERTHOSTNAME" \
     -keyout $CERTSPATH/$CERTHOSTNAME.pem  -out $CERTSPATH/$CERTHOSTNAME.cert
+cat $CERTSPATH/$CERTHOSTNAME.cert $CERTSPATH/$CERTHOSTNAME.cert > $CERTSPATH/${CERTHOSTNAME}_chain.cert
 echo Done!
